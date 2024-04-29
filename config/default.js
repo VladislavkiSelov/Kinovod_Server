@@ -13,4 +13,7 @@ module.exports = {
     host: process.env.DB_HOST,
     connectionFormat: process.env.NODE_ENV === "develop" ? "+srv" : "",
   },
+  auth:{
+    secret: process.env.SECRET
+  }
 };
