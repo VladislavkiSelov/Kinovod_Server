@@ -20,7 +20,7 @@ async function connectionMongoose() {
 }
 
 const mongoUrl = `mongodb${db.connectionFormat}://${db.user}:${db.pass}@${db.host}/${db.name}?retryWrites=true&w=majority`;
-console.log(mongoUrl);
+connectionMongoose()
 
 module.exports = {
   User,

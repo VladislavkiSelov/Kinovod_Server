@@ -18,7 +18,8 @@ class userController {
   }
 
   async getUser(req, res, next) {
-    const { password, email } = req.body;
+    const { password, email } = req.query;
+
     try {
       const user = await User.findOne({ email });
       const passwordMatch = await checkPassword(password, user.password);

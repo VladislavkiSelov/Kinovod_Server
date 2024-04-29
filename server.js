@@ -6,12 +6,10 @@ const cors = require("cors");
 const morgan = require("morgan");
 
 const { router: userRouter } = require("./router/userRouter");
-const { connectionMongoose } = require("./connectionMongoose");
 
 const server = express();
 const { port } = config.server;
 server.listen(port, () => console.log(`server start port ${port}`));
-connectionMongoose()
 
 server.use(cors({ origin: "http://localhost:3000" }));
 
