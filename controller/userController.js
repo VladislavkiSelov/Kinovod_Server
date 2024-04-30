@@ -1,6 +1,7 @@
 const { User } = require("../connectionMongoose");
 const { hashPassword, checkPassword } = require("../helpFunction/auth");
 const logger = require("../utils/logger");
+const mongoose = require("mongoose");
 
 class userController {
   constructor() {}
@@ -29,6 +30,20 @@ class userController {
         throw new Error("Error password");
       }
 
+      next();
+    } catch (err) {
+      logger("findUser").error(err);
+      res.send(400);
+    }
+  }
+
+  async findIdUser(req, res, next) {
+    const { id } = req.body;
+    console.log(id);
+
+    try {
+      const user = await User.findById(id);
+      req.user = user;
       next();
     } catch (err) {
       logger("findUser").error(err);

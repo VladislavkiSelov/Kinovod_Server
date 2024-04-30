@@ -16,6 +16,7 @@ server.use(cors({ origin: "http://localhost:3000" }));
 morgan.token("errorMessage", function (req, res) {
   return req.error || "";
 });
+
 server.use(morgan(`:method :url :status :errorMessage`));
 
 server.use(bodyParser.json());

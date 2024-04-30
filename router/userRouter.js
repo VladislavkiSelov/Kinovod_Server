@@ -11,4 +11,8 @@ router.get("/user", userController.getUser.bind(userController), assignToken, (r
   res.send(200, { id: req.user.id, token: req.token });
 });
 
+router.post("/token", userController.findIdUser.bind(userController), assignToken, (req, res) => {
+  res.send(200, { id: req.user.id, token: req.token });
+});
+
 module.exports = { router };

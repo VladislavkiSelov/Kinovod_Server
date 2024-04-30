@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("users", userSchema);
+const mongoUrl = `mongodb${db.connectionFormat}://${db.user}:${db.pass}@${db.host}/${db.name}?retryWrites=true&w=majority`;
 
 async function connectionMongoose() {
   try {
@@ -19,10 +20,8 @@ async function connectionMongoose() {
   }
 }
 
-const mongoUrl = `mongodb${db.connectionFormat}://${db.user}:${db.pass}@${db.host}/${db.name}?retryWrites=true&w=majority`;
-connectionMongoose()
+connectionMongoose();
 
 module.exports = {
   User,
-  connectionMongoose
 };
