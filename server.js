@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 
-const { router: userRouter } = require("./router/userRouter");
+const { router: authRouter } = require("./router/authRouter");
 
 const server = express();
 const { port } = config.server;
@@ -20,4 +20,4 @@ morgan.token("errorMessage", function (req, res) {
 server.use(morgan(`:method :url :status :errorMessage`));
 
 server.use(bodyParser.json());
-server.use("/", userRouter);
+server.use("/", authRouter);
