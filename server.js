@@ -6,6 +6,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 
 const { router: authRouter } = require("./router/authRouter");
+const { router: userRouter } = require("./router/userRouter");
 
 const server = express();
 const { port } = config.server;
@@ -20,4 +21,5 @@ morgan.token("errorMessage", function (req, res) {
 server.use(morgan(`:method :url :status :errorMessage`));
 
 server.use(bodyParser.json());
-server.use("/", authRouter);
+server.use("/auth", authRouter);
+server.use("/user", userRouter);
