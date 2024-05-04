@@ -17,6 +17,6 @@ module.exports = {
     secret: process.env.SECRET,
   },
   client: {
-    host: process.env.NODE_ENV === "develop" ? "http://localhost:3000" : process.env.FRONT_HOST,
+    host: process.env.FRONT_HOST,
   },
 };
