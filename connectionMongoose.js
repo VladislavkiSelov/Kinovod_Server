@@ -7,8 +7,15 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
+const movieSchema = new mongoose.Schema({
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+  favoritedMovie: [{ movie_id: { type: String, required: true }, type: { type: String, required: true } }],
+});
+
 const User = mongoose.model("users", userSchema);
-const mongoUrl = `mongodb${db.connectionFormat}://${db.user}:${db.pass}@${db.host}/${db.name}?retryWrites=true&w=majority`;
+const Movie = mongoose.model("movies", movieSchema);
+
+const mongoUrl = `mongodb${db.connectionFormat}://${db.user}:${db.pass}@${db.host}/?retryWrites=true&w=majority&appName=${db.name}`;
 
 async function connectionMongoose() {
   try {
@@ -24,4 +31,5 @@ connectionMongoose();
 
 module.exports = {
   User,
+  Movie,
 };
