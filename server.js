@@ -20,6 +20,10 @@ morgan.token("errorMessage", function (req, res) {
   return req.error || "";
 });
 
+server.get("/", (req, res) => {
+  res.end(<h1>Home</h1>);
+});
+
 server.use(morgan(`:method :url :status :errorMessage`));
 
 server.use(bodyParser.json());
