@@ -14,7 +14,7 @@ const server = express();
 const { port } = config.server;
 server.listen(port, () => console.log(`server start port ${port}`));
 
-server.use(cors({ origin: client.host }));
+server.use(cors());
 
 morgan.token("errorMessage", function (req, res) {
   return req.error || "";
