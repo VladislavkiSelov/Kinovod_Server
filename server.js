@@ -11,7 +11,7 @@ const { router: movieRouter } = require("./router/movieRouter");
 const { client } = require("./config/default");
 
 const server = express();
-const { port } = config.server;
+const port = process.env.PORT || 8000;
 server.listen(port, () => console.log(`server start port ${port}`));
 
 server.use(cors());
