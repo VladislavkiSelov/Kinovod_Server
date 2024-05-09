@@ -21,7 +21,7 @@ morgan.token("errorMessage", function (req, res) {
 });
 
 server.get("/", (req, res) => {
-  res.end(<h1>Home</h1>);
+  res.send("<h1>Home</h1>");
 });
 
 server.use(morgan(`:method :url :status :errorMessage`));
