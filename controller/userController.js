@@ -1,10 +1,40 @@
+const { auth } = require("../config/default");
 const { User } = require("../connectionMongoose");
 const { hashPassword, checkPassword } = require("../helpFunction/auth");
+const { sendMail } = require("../helpFunction/sendMail");
 const logger = require("../utils/logger");
 const { ObjectId } = require("mongodb");
+const jwt = require("jsonwebtoken");
 
 class userController {
   constructor() {}
+
+  async resetPasswordUser(req, res, next) {
+    const { email } = req.body;
+    try {
+      const user = await User.findOne({ email });
+      if (!!user) {
+        const resetToken = jwt.sign({ email }, auth.secret, { expiresIn: "15m" });
+        await sendMail(email, resetToken);
+        next();
+      }else{
+        res.send(404)
+      }
+    } catch (err) {
+      logger("resetPasswordUser").error(err);
+    }
+  }
+
+  async setPasswordUser(req, res, next) {
+    const { password } = req.body;
+    const hasgpassword = await hashPassword(password);
+    try {
+      await User.findOneAndUpdate({ email: req.user.email }, { password: hasgpassword });
+      next();
+    } catch (err) {
+      logger("resetPasswordUser").error(err);
+    }
+  }
 
   async createUser(req, res, next) {
     const { password, email, username } = req.body;
@@ -32,7 +62,7 @@ class userController {
 
       next();
     } catch (err) {
-      logger("findUser").error(err);
+      logger("getUser").error(err);
       res.send(400);
     }
   }
@@ -45,7 +75,7 @@ class userController {
       req.user = user;
       next();
     } catch (err) {
-      logger("findUser").error(err);
+      logger("findIdUser").error(err);
       res.send(404);
     }
   }
